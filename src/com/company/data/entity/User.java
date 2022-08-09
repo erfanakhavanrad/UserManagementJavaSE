@@ -1,8 +1,8 @@
-package com.company.entity;
+package com.company.data.entity;
 
 import java.util.Date;
 
-public class User {
+public class  User {
     Long id;
     String name;
     String password;
@@ -11,6 +11,15 @@ public class User {
     Double salary;
 
     public User() {
+    }
+
+    public User(Long id, String name, String password, String email, Date birthday, Double salary) {
+        this.id = id;
+        this.name = name;
+        this.password = password;
+        this.email = email;
+        this.birthday = birthday;
+        this.salary = salary;
     }
 
     public Long getId() {
