@@ -47,4 +47,8 @@ public class UserTableModel extends AbstractTableModel {
         this.users = users;
         fireTableDataChanged();
     }
+
+    public User getSelectedUser(int row) {
+        return users.get(row);
+    }
 }

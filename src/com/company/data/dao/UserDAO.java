@@ -2,13 +2,16 @@ package com.company.data.dao;
 
 import com.company.data.entity.User;
 
-import java.sql.*;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDAO extends AbstractDAO {
+public class UserDAO extends AbstractDAO<User> {
 
-    User user = new User();
+    //    User user = new User();
     String userMaxID = "SELECT max(id) FROM user_tbl";
     String saveSQl = "INSERT INTO user_tbl (id, name, password, email, birthday, salary) VALUES (?,?,?,?,?,?)";
     String updateSQl = "UPDATE user_tbl Set name=?, password=?, email=?, birthday=?, salary=? WHERE ID=?";
@@ -35,7 +38,7 @@ public class UserDAO extends AbstractDAO {
     }
 
     @Override
-    public Object save(Object o) throws SQLException {
+    public User save(User user) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement(saveSQl);
         currentID++;
         user.setId(currentID);
@@ -46,25 +49,26 @@ public class UserDAO extends AbstractDAO {
         preparedStatement.setDate(5, new Date(user.getBirthday().getTime()));
         preparedStatement.setDouble(6, user.getSalary());
         preparedStatement.executeUpdate();
-        connection.commit();
+//        connection.commit();
         return user;
     }
 
     @Override
-    public Object update(Object o) throws SQLException {
+    public User update(User user) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement(updateSQl);
         preparedStatement.setString(1, user.getName());
         preparedStatement.setString(2, user.getPassword());
         preparedStatement.setString(3, user.getEmail());
         preparedStatement.setDate(4, new Date(user.getBirthday().getTime()));
         preparedStatement.setDouble(5, user.getSalary());
+        preparedStatement.setLong(6, user.getId());
         preparedStatement.executeUpdate();
         connection.commit();
         return user;
     }
 
     @Override
-    public Object delete(Object o) throws SQLException {
+    public User delete(User user) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement(deleteSQl);
         preparedStatement.setLong(1, user.getId());
         preparedStatement.executeUpdate();
@@ -83,10 +87,10 @@ public class UserDAO extends AbstractDAO {
     }
 
     @Override
-    public List findAll() throws SQLException {
+    public List<User> findAll() throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement(findAllSQl);
-        ResultSet resultSet = preparedStatement.executeQuery();
         List<User> users = new ArrayList<User>();
+        ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
             Long id = resultSet.getLong("id");
             String name = resultSet.getString("name");

@@ -13,8 +13,8 @@ public class LoginDialog extends JDialog implements ActionListener {
     JLabel passwordLabel = new JLabel("Password");
     JLabel messageLabel = new JLabel("");
 
-    JTextField userField = new JTextField("user");
-    JPasswordField passwordField = new JPasswordField("1");
+    JTextField userField = new JTextField("admin");
+    JPasswordField passwordField = new JPasswordField("admin");
 
     JButton loginButton = new JButton("Login");
     JButton cancelButton = new JButton("Cancel");

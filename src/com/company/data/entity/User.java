@@ -13,6 +13,14 @@ public class  User {
     public User() {
     }
 
+    public User(String name, String password, String email, Date birthday, Double salary) {
+        this.name = name;
+        this.password = password;
+        this.email = email;
+        this.birthday = birthday;
+        this.salary = salary;
+    }
+
     public User(Long id, String name, String password, String email, Date birthday, Double salary) {
         this.id = id;
         this.name = name;
