@@ -22,10 +22,10 @@ public class UserTableModel extends AbstractTableModel {
 
     @Override
     public String getColumnName(int column) {
-        if (column == 0) return "User";
-        else if (column == 1) return "Email";
-        else if (column == 2) return "Birthday";
-        else if (column == 3) return "Salary";
+        if (column == 0) return I18NUtility.getMessage("general.user");
+        else if (column == 1) return I18NUtility.getMessage("user.email");
+        else if (column == 2) return I18NUtility.getMessage("user.birthday");
+        else if (column == 3) return I18NUtility.getMessage("user.salary");
         return "";
     }
 

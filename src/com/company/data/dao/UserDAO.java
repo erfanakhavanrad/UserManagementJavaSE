@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class UserDAO extends AbstractDAO<User> {
 
@@ -21,6 +22,8 @@ public class UserDAO extends AbstractDAO<User> {
     String loginSQl = "SELECT * FROM user_tbl WHERE name=? and password=?";
     String changePasswordSQl = "UPDATE user_tbl Set password=? WHERE name=? and Password=?";
     Long currentID;
+
+    Logger logger = Logger.getLogger(UserDAO.class.getName());
 
     public UserDAO() {
         try {
@@ -49,6 +52,7 @@ public class UserDAO extends AbstractDAO<User> {
         preparedStatement.setDate(5, new Date(user.getBirthday().getTime()));
         preparedStatement.setDouble(6, user.getSalary());
         preparedStatement.executeUpdate();
+        logger.info("Info: " + user);
 //        connection.commit();
         return user;
     }
@@ -136,6 +140,10 @@ public class UserDAO extends AbstractDAO<User> {
         connection.commit();
         return result;
 
+    }
+
+    public void commit() throws SQLException{
+        connection.commit();
     }
 
 }

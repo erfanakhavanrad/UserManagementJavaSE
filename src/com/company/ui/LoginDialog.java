@@ -1,6 +1,7 @@
 package com.company.ui;
 
 import com.company.data.dao.UserDAO;
+import com.company.service.UserService;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,20 +10,22 @@ import java.awt.event.ActionListener;
 
 public class LoginDialog extends JDialog implements ActionListener {
 
-    JLabel userLabel = new JLabel("User");
-    JLabel passwordLabel = new JLabel("Password");
+    JLabel userLabel = UIUtility.createLabel("general.user");
+    JLabel passwordLabel = UIUtility.createLabel("general.password");
     JLabel messageLabel = new JLabel("");
 
-    JTextField userField = new JTextField("admin");
-    JPasswordField passwordField = new JPasswordField("admin");
+    JTextField userField = UIUtility.createField("admin");
+    JPasswordField passwordField = UIUtility.createPasswordField("admin");
 
-    JButton loginButton = new JButton("Login");
-    JButton cancelButton = new JButton("Cancel");
+    JButton loginButton = UIUtility.createButton("login.btn.login");
+    JButton cancelButton = UIUtility.createButton("login.btn.cancel");
 
     UserDAO userDAO = new UserDAO();
+    // Note: UserDao should be replaced by UserService where ever it is used in the project.
+//    UserService userService = new UserService();
 
     public LoginDialog() {
-        setTitle("Login");
+        setTitle(I18NUtility.getMessage("login.title"));
         messageLabel.setForeground(Color.RED);
         messageLabel.setHorizontalAlignment(JLabel.CENTER);
         loginButton.addActionListener(this);
@@ -55,7 +58,7 @@ public class LoginDialog extends JDialog implements ActionListener {
                     this.dispose();
                     UserMngWindow userMngWindow = new UserMngWindow();
                 } else {
-                    messageLabel.setText("Username/Password is invalid!");
+                    messageLabel.setText(I18NUtility.getMessage("login.user.password.invalid"));
                 }
 
             } else {
